@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import chalk from 'chalk';
+import * as fs from 'fs';
+import * as path from 'path';
 import { initCommand } from './commands/init';
 import { videoCommand } from './commands/video';
 import { configCommand } from './commands/config';
+import { VideoFormat } from '../shared/types';
 
 const pkg = require('../../package.json');
 
@@ -21,20 +24,36 @@ program
   .action(initCommand);
 
 program
-  .command('video')
-  .description('Generate a promotional video from your repo')
-  .option('--type <type>', 'Video format (product-hunt, explainer, twitter-demo, release-notes)', 'product-hunt')
-  .option('--output <path>', 'Output file path', 'reproreel-output.mp4')
-  .option('--no-ai-video', 'Skip AI video generation (use static images + Ken Burns)')
-  .option('--resolution <res>', 'Video resolution (480p, 720p, 1080p)', '720p')
-  .option('--dry-run', 'Show cost estimate only, do not generate')
-  .action(videoCommand);
-
-program
   .command('config')
   .description('Set API keys and preferences')
   .argument('<action>', 'set | get | list')
   .argument('[keyvalue]', 'KEY=value pair for set action')
   .action(configCommand);
+
+// Dynamically load video commands from the 'skills' directory!
+const skillsDir = path.join(process.cwd(), 'skills');
+if (fs.existsSync(skillsDir)) {
+  const skillFiles = fs.readdirSync(skillsDir).filter(f => f.endsWith('.md'));
+  
+  for (const file of skillFiles) {
+    const commandName = file.replace('.md', '');
+    
+    program
+      .command(commandName)
+      .description(`Generate a ${commandName} video from this repository`)
+      .option('--output <path>', 'Output file path', `reproreel-${commandName}.mp4`)
+      .option('--dry-run', 'Show script and cost estimate only, do not generate')
+      .action((options) => {
+        // Execute the video generation with this specific skill/format
+        videoCommand({
+          type: commandName as VideoFormat,
+          output: options.output,
+          aiVideo: true,
+          resolution: '720p',
+          dryRun: options.dryRun || false
+        });
+      });
+  }
+}
 
 program.parse(process.argv);

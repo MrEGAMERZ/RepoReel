@@ -5,8 +5,8 @@ import ora from 'ora';
 import { analyzeRepo } from '../../analyzer';
 import { generateScript } from '../../story';
 import { VideoGenerateOptions, RepoContext } from '../../shared/types';
-// import { generateFootage } from '../../footage';
-// import { compileVideo } from '../../editor';
+import { generateFootage } from '../../footage';
+import { compileVideo } from '../../editor';
 
 export async function videoCommand(options: VideoGenerateOptions) {
   console.log(chalk.blue.bold(`\n🎬 RepoReel - Generating ${options.type} video`));
@@ -32,7 +32,7 @@ export async function videoCommand(options: VideoGenerateOptions) {
 
   // Story & Script Phase
   let script;
-  const scriptSpinner = ora('Writing script via AI...').start();
+  const scriptSpinner = ora('Writing script via AI (Gemini)...').start();
   try {
     script = await generateScript(context, options.type);
     scriptSpinner.succeed(`Script generated (${script.totalDurationSeconds}s, ${script.segments.length} scenes)`);
@@ -49,15 +49,13 @@ export async function videoCommand(options: VideoGenerateOptions) {
     return;
   }
 
-  console.log(chalk.yellow('\n🚧 [Phase 2] Video generation and FFmpeg compilation are stubbed for the initial release.'));
-  console.log(chalk.gray('The script is ready! Footage generation (Wan/Runway) and FFmpeg assembly will be plugged in next.'));
-  
-  // TODO: Implement footage and editor integration
-  // const footageSpinner = ora('Generating video footage...').start();
-  // const footage = await generateFootage(script, options);
-  // footageSpinner.succeed('Footage generated');
-  //
-  // const editSpinner = ora('Compiling final video...').start();
-  // await compileVideo(footage, script, options.output);
-  // editSpinner.succeed(`Video saved to ${options.output}`);
+  // Footage Generation Phase (Higgsfield)
+  const footageSpinner = ora('Generating video footage (Higgsfield AI)...').start();
+  const footage = await generateFootage(script, options);
+  footageSpinner.succeed('Footage generated successfully');
+
+  // FFmpeg Compilation Phase
+  const editSpinner = ora('Compiling final video with FFmpeg...').start();
+  await compileVideo(footage, script, options.output);
+  editSpinner.succeed(`Video successfully saved to ${chalk.green(options.output)}`);
 }
