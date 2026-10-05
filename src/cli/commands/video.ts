@@ -30,12 +30,23 @@ export async function videoCommand(options: VideoGenerateOptions) {
     }
   }
 
+  // Create output directory inside the project
+  const assetsDir = path.join(targetPath, 'reporeel-assets');
+  if (!fs.existsSync(assetsDir)) {
+    fs.mkdirSync(assetsDir, { recursive: true });
+  }
+
   // Story & Script Phase
   let script;
   const scriptSpinner = ora('Writing script via AI (Gemini)...').start();
   try {
     script = await generateScript(context, options.type);
-    scriptSpinner.succeed(`Script generated (${script.totalDurationSeconds}s, ${script.segments.length} scenes)`);
+    
+    // Save the script to the assets folder
+    const scriptPath = path.join(assetsDir, `${options.type}-script.json`);
+    fs.writeFileSync(scriptPath, JSON.stringify(script, null, 2));
+    
+    scriptSpinner.succeed(`Script generated and saved to reporeel-assets/${options.type}-script.json`);
   } catch (e: any) {
     scriptSpinner.fail('Script generation failed');
     console.error(chalk.red(e.message));
@@ -43,9 +54,7 @@ export async function videoCommand(options: VideoGenerateOptions) {
   }
 
   if (options.dryRun) {
-    console.log(chalk.cyan('\n[DRY RUN] Script Output:'));
-    console.log(JSON.stringify(script, null, 2));
-    console.log(chalk.yellow('\nDry run complete. No video was rendered.'));
+    console.log(chalk.yellow('\nDry run complete. No video was rendered. Check reporeel-assets/ for the script.'));
     return;
   }
 
@@ -55,7 +64,8 @@ export async function videoCommand(options: VideoGenerateOptions) {
   footageSpinner.succeed('Footage generated successfully');
 
   // FFmpeg Compilation Phase
+  const finalOutput = path.join(assetsDir, `${options.type}-video.mp4`);
   const editSpinner = ora('Compiling final video with FFmpeg...').start();
-  await compileVideo(footage, script, options.output);
-  editSpinner.succeed(`Video successfully saved to ${chalk.green(options.output)}`);
+  await compileVideo(footage, script, finalOutput);
+  editSpinner.succeed(`Video successfully saved to ${chalk.green(`reporeel-assets/${options.type}-video.mp4`)}`);
 }

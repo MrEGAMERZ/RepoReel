@@ -1,28 +1,44 @@
 #!/bin/bash
 set -e
 
-echo "🎬 Installing RepoReel from GitHub..."
+echo "🎬 Installing RepoReel into the current project..."
 
-INSTALL_DIR="$HOME/.reporeel"
+# Determine current directory
+PROJECT_DIR="$PWD"
+INSTALL_DIR="$PROJECT_DIR/.reporeel"
 
-# Clone or update the repository
+# Clone or update the repository locally
 if [ -d "$INSTALL_DIR" ]; then
-  echo "Updating existing RepoReel installation..."
+  echo "Updating existing RepoReel installation in $INSTALL_DIR..."
   cd "$INSTALL_DIR"
   git pull origin master --quiet
 else
-  echo "Cloning RepoReel..."
+  echo "Cloning RepoReel into $INSTALL_DIR..."
   git clone https://github.com/MrEGAMERZ/RepoReel.git "$INSTALL_DIR" --quiet
 fi
 
-# Setup executable
+# Setup dependencies
+echo "Installing dependencies..."
 cd "$INSTALL_DIR"
 npm install --quiet
 npm run build --quiet
 
-# Link globally
-sudo ln -sf "$INSTALL_DIR/dist/cli/index.js" /usr/local/bin/reporeel
+# Create a local runner script in the project root
+cd "$PROJECT_DIR"
+cat << 'EOF' > reporeel
+#!/bin/bash
+node .reporeel/dist/cli/index.js "$@"
+EOF
+chmod +x reporeel
 
-echo "✅ RepoReel installed successfully!"
+# Add to gitignore if not present
+if [ -f .gitignore ]; then
+  if ! grep -q ".reporeel" .gitignore; then
+    echo ".reporeel/" >> .gitignore
+    echo "reporeel" >> .gitignore
+  fi
+fi
+
+echo "✅ RepoReel installed locally, exactly like gstack!"
 echo ""
-echo "Try it out by typing: reporeel launch-video"
+echo "Try it out by typing: ./reporeel launch-video"

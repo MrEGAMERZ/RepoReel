@@ -26,13 +26,20 @@ export async function renderCommand(scriptPath: string) {
     dryRun: false
   };
 
+  // Create output directory
+  const assetsDir = path.join(process.cwd(), 'reporeel-assets');
+  if (!fs.existsSync(assetsDir)) {
+    fs.mkdirSync(assetsDir, { recursive: true });
+  }
+
   // Footage Generation Phase
   const footageSpinner = ora('Generating video footage via API...').start();
   const footage = await generateFootage(script, options);
   footageSpinner.succeed('Footage generated successfully');
 
   // FFmpeg Compilation Phase
+  const finalOutput = path.join(assetsDir, 'agent-rendered-video.mp4');
   const editSpinner = ora('Compiling final video...').start();
-  await compileVideo(footage, script, options.output);
-  editSpinner.succeed(`Video successfully saved to ${chalk.green(options.output)}`);
+  await compileVideo(footage, script, finalOutput);
+  editSpinner.succeed(`Video successfully saved to ${chalk.green(`reporeel-assets/agent-rendered-video.mp4`)}`);
 }
