@@ -1,17 +1,33 @@
 <div align="center">
 
-<img src="https://img.shields.io/badge/RepoReel-AI%20Video%20Generator-6C63FF?style=for-the-badge" alt="RepoReel">
+<br/>
 
-# 🎬 RepoReel
+<img src="https://img.shields.io/badge/─────────────────────────────────────────────-transparent?style=flat" alt="">
 
-### Turn any GitHub repo into a stunning promotional video — in one command.
+```
+██████╗ ███████╗██████╗  ██████╗ ██████╗ ███████╗███████╗██╗
+██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔════╝██╔════╝██║
+██████╔╝█████╗  ██████╔╝██║   ██║██████╔╝█████╗  █████╗  ██║
+██╔══██╗██╔══╝  ██╔═══╝ ██║   ██║██╔══██╗██╔══╝  ██╔══╝  ██║
+██║  ██║███████╗██║     ╚██████╔╝██║  ██║███████╗███████╗███████╗
+╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+```
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Stars](https://img.shields.io/github/stars/yourusername/RepoReel?style=social)](https://github.com/yourusername/RepoReel)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Made with AI](https://img.shields.io/badge/Powered%20by-AI-blue)](https://github.com/yourusername/RepoReel)
+### **Turn any git repo into a promotional video — in one command.**
 
-[**Demo**](#demo) · [**Quick Start**](#quick-start) · [**How It Works**](#how-it-works) · [**Roadmap**](#roadmap) · [**Contributing**](#contributing)
+<br/>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/reproreel?style=flat-square&color=cb3837)](https://www.npmjs.com/package/reproreel)
+[![Stars](https://img.shields.io/github/stars/MrEGAMERZ/RepoReel?style=flat-square&color=ffd700)](https://github.com/MrEGAMERZ/RepoReel/stargazers)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
+[![Node.js ≥18](https://img.shields.io/badge/node-%3E%3D18-brightgreen?style=flat-square)](https://nodejs.org)
+
+<br/>
+
+[**Quick Start**](#-quick-start) · [**Video Formats**](#-video-formats) · [**Pricing**](#-pricing) · [**Roadmap**](#-roadmap) · [**Contributing**](#-contributing)
+
+<br/>
 
 </div>
 
@@ -19,196 +35,229 @@
 
 ## The Problem
 
-You built something great. But nobody knows about it.
+You built something genuinely useful. Your README is solid. Your code is clean.
 
-Making a promotional video for your project means:
-- 📹 Recording 3–4 Loom takes while narrating your own code
-- ✂️ Manually editing captions, trimming, adding music
-- 📝 Writing descriptions from scratch
-- ⏱️ **Wasting 4+ hours you could spend building**
+But nobody's discovered it yet — because **the GitHub README is not enough in 2026.**
 
-Most developers just skip it. Projects go unnoticed. The README is all there is.
+The projects getting traction have a demo video on their landing page, a 15-second clip on X, a Product Hunt launch video. Creating all of that used to mean:
 
-**RepoReel fixes that.**
+- 🎙️ Recording 3-4 Loom takes and re-scripting every time
+- ✂️ Hours in a video editor you don't know how to use
+- 📝 Writing a separate description for every platform
+- ⏱️ **Burning a whole day** before you can get back to building
+
+**Most developers skip it.** Great projects stay undiscovered.
+
+RepoReel fixes that.
 
 ---
 
-## What It Does
+## ⚡ Quick Start
+
+### Option A — Zero-Key (Use Your AI Agent's Subscription)
+
+If you use **Cursor**, **Claude Code**, **Antigravity**, or any AI coding agent, you can skip API keys entirely. Tell your agent:
+
+> *"Pull the RepoReel install script from GitHub and run it. Then read this repo and generate a 60-second Product Hunt launch video using the `skills/launch-video.md` format."*
+
+Your agent analyzes the repo, writes the script, and RepoReel renders the video — **\$0 in API costs.**
+
+---
+
+### Option B — CLI (Manual, 2 minutes)
+
+**1. Install**
 
 ```bash
-npx reproreel video --type product-hunt
+curl -fsSL https://raw.githubusercontent.com/MrEGAMERZ/RepoReel/master/install.sh | bash
 ```
 
-That's it. RepoReel will:
-
-1. 🔍 **Scan your repo** — README, code structure, git history, package files
-2. 📖 **Write the story** — Problem → Solution → Demo → CTA narrative
-3. 🎙️ **Generate the script** — timed voiceover for your chosen video format
-4. 🎬 **Create footage** — AI-generated visuals matched to your project's vibe
-5. ✂️ **Edit & compile** — transitions, captions, music, branding
-6. 💾 **Save locally** — `output.mp4` drops right in your project folder
-
----
-
-## Quick Start
-
-### The "Zero-Key" Agent-Native Workflow
-If you are using an AI agent like **Cursor**, **Claude Code**, or **Antigravity (Gemini)**, you can make the agent do all the heavy lifting using its *own* subscription tokens. You don't need an OpenAI or Gemini API key!
-
-1. Tell your AI Agent to pull the tool:
-   > "Pull the RepoReel install script from GitHub and run it."
-   
-   *(Or just run it yourself:)*
-   ```bash
-   curl -fsSL https://raw.githubusercontent.com/MrEGAMERZ/RepoReel/master/install.sh | bash
-   ```
-
-2. Tell your AI Agent to write the script and render it:
-   > "Read my repo and write a 60-second video script based on the format in `skills/launch-video.md`. Save it as `script.json`, then run `reporeel render script.json`."
-
-That's it. Your agent will analyze your repo, write the perfect script (costing you $0 in API keys), and RepoReel will render the final MP4 using the video API.
-
-### Manual CLI Workflow
-If you prefer running it manually without an agent:
-```bash
-# Set your keys once
-reporeel config set GEMINI_API_KEY=your_key
-reporeel config set HIGGSFIELD_API_KEY=your_key
-
-# Generate a Product Hunt launch video (60 seconds)
-reporeel launch-video
-```
-
----
-
-## How It Works
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        RepoReel Pipeline                     │
-├──────────────┬──────────────┬──────────────┬────────────────┤
-│  1. ANALYZE  │  2. STORY    │  3. SCRIPT   │  4. FOOTAGE    │
-│              │              │              │                │
-│  README      │  Problem →   │  Voiceover   │  AI Video      │
-│  Code AST    │  Solution →  │  script      │  generation    │
-│  git log     │  Demo →      │  timed to    │  (Wan/Runway)  │
-│  package.json│  CTA         │  format      │  + screenshots │
-├──────────────┴──────────────┴──────────────┴────────────────┤
-│                  5. COMPILE & EDIT                           │
-│      FFmpeg assembly · captions · transitions · music       │
-├─────────────────────────────────────────────────────────────┤
-│                  6. OUTPUT: output.mp4                       │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Video Formats (Skills)
-
-Each format is defined as a `SKILL.md` — a declarative spec the AI reads to know how to structure the video. Community-contributed formats welcome!
-
-| Format | Duration | Best For |
-|--------|----------|----------|
-| `product-hunt` | 60s | PH launches, homepage hero |
-| `explainer` | 3 min | Docs, YouTube, onboarding |
-| `twitter-demo` | 15s | X/Twitter, viral clips |
-| `release-notes` | 90s | "What's new in v2.0" posts |
-| `readme-video` | 60s | Embed in GitHub README |
-
----
-
-## Credit System
-
-RepoReel uses a **BYOK (Bring Your Own Key)** model by default.
+Or with npm:
 
 ```bash
-reproreel config set RUNWAY_API_KEY=your_key_here
+npm install -g reproreel
+```
+
+**2. Add your API keys** *(one-time setup)*
+
+```bash
+reproreel config set GEMINI_API_KEY=your_key
+reproreel config set HF_API_KEY=your_key       # for Wan 3.0 video
 # or
-reproreel config set HUGGINGFACE_API_KEY=your_key_here
+reproreel config set RUNWAY_API_KEY=your_key   # for Runway Gen-4
 ```
 
-**Estimated cost per video:**
+**3. Generate your video**
 
-| Video Length | Estimated AI Cost | Provider |
-|-------------|-----------------|----------|
-| 15 seconds | ~$0.75 | Runway Gen-4 Turbo |
-| 60 seconds | ~$3.00 | Runway Gen-4 Turbo |
-| 60 seconds | ~$1.50 | Wan 3.0 (480p) |
-| 3 minutes | ~$9.00 | Wan 3.0 (1080p) |
+```bash
+# 60-second Product Hunt launch video
+reproreel launch-video
 
-> Free tier coming: 1 watermarked video/month included, no key needed.
+# Or pick a format explicitly
+reproreel video --type product-hunt
+reproreel video --type twitter-demo
+reproreel video --type explainer
+reproreel video --type release-notes
+```
+
+Your video lands at `./output.mp4`. Done.
 
 ---
 
-## Why RepoReel Beats The Alternatives
+## 🎬 What Happens When You Run It
 
-| | RepoReel | RepoClip | Loom | Synthesia |
-|--|---------|---------|------|-----------|
-| CLI-native | ✅ | ❌ | ❌ | ❌ |
-| Multi-platform (GitLab, Bitbucket) | ✅ | ❌ GitHub only | N/A | N/A |
-| Custom voices / voice cloning | ✅ | ❌ preset only | ✅ | ✅ |
-| 100% local/private repo support | ✅ | Partial | ✅ | N/A |
-| BYOK (your API credits) | ✅ | ❌ | N/A | ❌ |
-| Open source | ✅ MIT | ❌ | ❌ | ❌ |
+RepoReel runs a 6-stage pipeline, entirely on your machine:
+
+```
+┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐
+│  ANALYZE │ → │  STORY   │ → │  SCRIPT  │ → │ FOOTAGE  │ → │  EDIT    │ → │ OUTPUT   │
+│          │   │          │   │          │   │          │   │          │   │          │
+│ README   │   │ Problem  │   │ Voiceover│   │ AI video │   │ Captions │   │output.mp4│
+│ Code AST │   │ Solution │   │ timed to │   │ Wan 3.0  │   │ Music    │   │ ready to │
+│ git log  │   │ Demo     │   │ your     │   │ Runway   │   │ Titles   │   │ upload   │
+│ pkg files│   │ CTA      │   │ format   │   │ FFmpeg   │   │ Branding │   │          │
+└──────────┘   └──────────┘   └──────────┘   └──────────┘   └──────────┘   └──────────┘
+```
+
+No uploads. No cloud. Everything runs locally — your repo never leaves your machine.
+
+---
+
+## 🎭 Video Formats
+
+Each format is a `SKILL.md` — a plain-text spec that tells RepoReel how to structure, pace, and write the video. They're community-contributed, version-controlled, and fully customizable.
+
+| Format | Duration | Best For | Command |
+|--------|----------|----------|---------|
+| `launch-video` | 60s | Product Hunt, Show HN, homepage hero | `reproreel launch-video` |
+| `explainer` | 3 min | Docs site, YouTube, onboarding | `reproreel video --type explainer` |
+| `twitter-promo` | 15s | X/Twitter, LinkedIn clips | `reproreel video --type twitter-promo` |
+| `release-notes` | 90s | "What's new in v2.0" posts | `reproreel video --type release-notes` |
+| `readme-embed` | 60s | Embed directly in your GitHub README | `reproreel video --type readme-embed` |
+
+**Want a new format?** Add a `skills/your-format.md` and submit a PR. It's the easiest contribution you can make — no TypeScript required.
+
+---
+
+## 💰 Pricing
+
+RepoReel is **BYOK** (Bring Your Own Key). You connect your own API keys and pay the providers directly — no markup, no middleman.
+
+| Video Length | Resolution | Cost | Provider |
+|-------------|-----------|------|----------|
+| 15 seconds | 720p | ~\$0.75 | Runway Gen-4 Turbo |
+| 60 seconds | 480p | ~\$1.50 | Wan 3.0 |
+| 60 seconds | 1080p | ~\$3.00 | Runway Gen-4 Turbo |
+| 3 minutes | 1080p | ~\$9.00 | Wan 3.0 |
+
+Before every generation, RepoReel shows you a cost estimate and asks for confirmation. No surprises.
+
+```
+┌─────────────────────────────────┐
+│  Estimated generation cost      │
+│  • Story + script (LLM): ~$0.01 │
+│  • Video (60s @ 480p):  ~$1.50  │
+│  • Voiceover (TTS):     ~$0.05  │
+│  ─────────────────────────────  │
+│  Total:                ~$1.56   │
+│  Provider: Wan 3.0 (your key)   │
+│                                 │
+│  Proceed? [Y/n]                 │
+└─────────────────────────────────┘
+```
+
+> **No API key?** Use the agent-native workflow (Option A above) — your AI agent's subscription covers the LLM calls, and RepoReel falls back to a Ken Burns static-image video at zero cost.
+
+---
+
+## 🆚 How It Compares
+
+|  | **RepoReel** | RepoClip | Loom | Synthesia |
+|--|:-----------:|:--------:|:----:|:---------:|
+| CLI-native (`npx reproreel`) | ✅ | ❌ | ❌ | ❌ |
+| Works with GitLab & Bitbucket | ✅ | ❌ GitHub only | N/A | N/A |
+| BYOK — use your own API credits | ✅ | ❌ | N/A | ❌ |
+| Private/local repos, no OAuth | ✅ | Partial | ✅ | N/A |
 | Extensible format skills | ✅ | ❌ | N/A | N/A |
-| Works offline (local models) | 🔜 | ❌ | ❌ | ❌ |
+| Open source (MIT) | ✅ | ❌ | ❌ | ❌ |
+| Custom voice / voice cloning | ✅ | ❌ preset only | ✅ | ✅ |
+| Offline / local model fallback | 🔜 | ❌ | ❌ | ❌ |
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 
-### Phase 1 — CLI Core (Now)
+### ✅ Phase 1 — CLI Core *(Now)*
 - [x] Project scaffolding & architecture
+- [x] 5 production-quality video skill formats
+- [x] Agent-native workflow (zero API key mode)
+- [x] Install script (`curl | bash`)
 - [ ] Repo analyzer (README + AST + git log)
 - [ ] Story generator (LLM-powered narrative)
 - [ ] Script writer (timed voiceover)
 - [ ] Footage generator (Wan 3.0 + Runway integration)
 - [ ] FFmpeg compilation pipeline
-- [ ] `product-hunt` and `explainer` skill formats
 - [ ] Local MP4 export
 
-### Phase 2 — Polish & Distribution
-- [ ] Install script (`curl | bash`)
-- [ ] Free watermarked tier (no API key needed)
-- [ ] Voice cloning support (ElevenLabs integration)
-- [ ] More skill formats (twitter-demo, release-notes)
+### 🔜 Phase 2 — Polish & Distribution
+- [ ] Free watermarked tier (1 video/month, no key needed)
+- [ ] Voice cloning support (ElevenLabs)
 - [ ] GitLab + Bitbucket support
+- [ ] `made-with-reproreel` badge (viral loop)
 
-### Phase 3 — Web UI & Platform
+### 🔮 Phase 3 — Platform
 - [ ] `reproreel.dev` — paste URL, get video
-- [ ] GitHub Action (auto-generate on release)
-- [ ] Team/org credit pooling
-- [ ] Analytics (view count, engagement)
+- [ ] GitHub Action (auto-generate on every release)
+- [ ] Team credit pooling
+- [ ] Video analytics
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-RepoReel is MIT-licensed and contribution-friendly. The most valuable things you can add:
+RepoReel is MIT-licensed and **actively welcoming contributors.** This project grows through community-built skill formats and integrations.
 
-- 🎬 **New skill formats** — add a `skills/your-format.md`
-- 🌐 **Platform support** — GitLab, Bitbucket, local repos
-- 🔌 **AI provider integrations** — more video generation APIs
-- 🐛 **Bug fixes & performance improvements**
+**The highest-impact things you can add:**
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for how to get started. First-time contributors: look for issues labeled [`good-first-issue`](../../issues?q=label%3Agood-first-issue).
+| Contribution | What it looks like | Difficulty |
+|--------------|--------------------|------------|
+| 🎬 New skill format | A `skills/your-format.md` (plain text, no code) | ⭐ Easy |
+| 🌐 Platform support | GitLab / Bitbucket in the analyzer | ⭐⭐ Medium |
+| 🔌 New AI provider | `src/footage/providers/yourprovider.ts` | ⭐⭐ Medium |
+| 🐛 Bug fix | Check [open issues](../../issues) | Varies |
+| 📖 Docs & examples | Improve guides, add examples | ⭐ Easy |
+
+**Get started in 60 seconds:**
+
+```bash
+git clone https://github.com/MrEGAMERZ/RepoReel.git
+cd RepoReel
+npm install
+npm run dev
+```
+
+First-time contributor? Look for [`good-first-issue`](../../issues?q=label%3Agood-first-issue) labels.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
 
 ---
 
-## Community
+## 💬 Community
 
-- 💬 [Discussions](../../discussions) — ideas, questions, showcase your generated videos
-- 🐛 [Issues](../../issues) — bug reports and feature requests
-- 🐦 [Twitter/X](https://x.com) — tag us with your generated videos
+- 🗣️ [GitHub Discussions](../../discussions) — show your generated videos, ask questions, share ideas
+- 🐛 [Issues](../../issues) — bug reports and feature requests  
+- 🐦 [X / Twitter](https://x.com) — share your video and tag us
 
 ---
 
-## License
+## 📄 License
 
-MIT © [Your Name](https://github.com/yourusername)
+MIT © [MrEGAMERZ](https://github.com/MrEGAMERZ)
 
 ---
 
 <div align="center">
 
-**If RepoReel saved you time, give it a ⭐ — it helps others find it.**
+**If RepoReel saved you time, a ⭐ goes a long way — it helps other developers find it.**
 
 </div>
