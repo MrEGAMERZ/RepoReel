@@ -11,8 +11,10 @@ export async function generateScript(context: RepoContext, format: VideoFormat):
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  // Using Gemini 1.5 Flash as a fast, cheap model for story generation
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash', generationConfig: { responseMimeType: 'application/json' } });
+  // Upgrade to Gemini 2.0 Pro for superior storytelling, pacing, and avoiding "AI slop" buzzwords.
+  // We allow an override via environment variable, but default to the highest EQ model for the script.
+  const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-pro-exp';
+  const model = genAI.getGenerativeModel({ model: modelName, generationConfig: { responseMimeType: 'application/json' } });
 
   // Read the skill file for the requested format
   const skillPath = path.join(process.cwd(), 'skills', `${format}.md`);
