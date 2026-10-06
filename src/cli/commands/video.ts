@@ -6,6 +6,7 @@ import { analyzeRepo } from '../../analyzer';
 import { generateScript } from '../../story';
 import { VideoGenerateOptions, RepoContext } from '../../shared/types';
 import { generateFootage } from '../../footage';
+import { generateAudio } from '../../audio';
 import { compileVideo } from '../../editor';
 
 export async function videoCommand(options: VideoGenerateOptions) {
@@ -58,14 +59,33 @@ export async function videoCommand(options: VideoGenerateOptions) {
     return;
   }
 
+  // Audio Generation Phase (Fish Audio)
+  const audioSpinner = ora('Generating voiceovers (Fish Audio)...').start();
+  let audioPaths: string[] = [];
+  try {
+    audioPaths = await generateAudio(script, assetsDir);
+    audioSpinner.succeed('Voiceovers generated successfully');
+  } catch (e: any) {
+    audioSpinner.fail('Voiceover generation failed');
+    console.error(chalk.red(e.message));
+    process.exit(1);
+  }
+
   // Footage Generation Phase (Higgsfield)
   const footageSpinner = ora('Generating video footage (Higgsfield AI)...').start();
-  const footage = await generateFootage(script, options);
-  footageSpinner.succeed('Footage generated successfully');
+  let footage;
+  try {
+    footage = await generateFootage(script, options);
+    footageSpinner.succeed('Footage generated successfully');
+  } catch (e: any) {
+    footageSpinner.fail('Footage generation failed');
+    console.error(chalk.red(e.message));
+    process.exit(1);
+  }
 
   // FFmpeg Compilation Phase
   const finalOutput = path.join(assetsDir, `${options.type}-video.mp4`);
   const editSpinner = ora('Compiling final video with FFmpeg...').start();
-  await compileVideo(footage, script, finalOutput);
+  await compileVideo(footage, audioPaths, script, finalOutput);
   editSpinner.succeed(`Video successfully saved to ${chalk.green(`reporeel-assets/${options.type}-video.mp4`)}`);
 }
